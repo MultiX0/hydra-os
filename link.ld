@@ -1,26 +1,28 @@
-ENTRY(loader)                /* Entry point: label "loader" */
+/* link.ld - Linker script for the kernel */
+
+ENTRY(loader)                /* the name of the entry label */
 
 SECTIONS {
-    . = 0x00100000;          /* Load the code starting at 1 MB */
+    . = 0x00100000;          /* the code should be loaded at 1 MB */
 
-    .text ALIGN(0x1000) :    /* Text (code) section, aligned to 4 KB */
+    .text ALIGN (0x1000) :   /* align at 4 KB */
     {
-        *(.text)             /* Include all .text sections from all object files */
+        *(.text)             /* all text sections from all files */
     }
 
-    .rodata ALIGN(0x1000) :  /* Read-only data section, aligned to 4 KB */
+    .rodata ALIGN (0x1000) : /* align at 4 KB */
     {
-        *(.rodata*)          /* Include all .rodata* sections */
+        *(.rodata*)          /* all read-only data sections from all files */
     }
 
-    .data ALIGN(0x1000) :    /* Data section, aligned to 4 KB */
+    .data ALIGN (0x1000) :   /* align at 4 KB */
     {
-        *(.data)             /* Include all .data sections */
+        *(.data)             /* all data sections from all files */
     }
 
-    .bss ALIGN(0x1000) :     /* Uninitialized data section, aligned to 4 KB */
+    .bss ALIGN (0x1000) :    /* align at 4 KB */
     {
-        *(COMMON)            /* Include all COMMON symbols */
-        *(.bss)              /* Include all .bss sections */
+        *(COMMON)            /* all COMMON sections from all files */
+        *(.bss)              /* all bss sections from all files */
     }
 }

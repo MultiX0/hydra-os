@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "fb.h": "c",
+        "serial.h": "c"
+    }
+}
