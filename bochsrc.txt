@@ -1,5 +1,3 @@
-# bochsrc.txt - Bochs configuration file
-
 megs:            32
 display_library: sdl
 romimage:        file=/usr/share/bochs/BIOS-bochs-latest
@@ -10,6 +8,3 @@ log:             bochslog.txt
 clock:           sync=realtime, time0=local
 cpu:             count=1, ips=1000000
 com1:            enabled=1, mode=file, dev=com1.out
-
-# VGA display options
-vga:             extension=vbe, update_freq=60

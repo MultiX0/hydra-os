@@ -7,6 +7,8 @@
         "string_view": "c",
         "ranges": "c",
         "span": "c",
-        "io.h": "c"
+        "io.h": "c",
+        "gdt.h": "c",
+        "bitset": "c"
     }
 }

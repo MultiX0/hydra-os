@@ -1,0 +1,4 @@
+*.o
+kernel.elf
+os.iso
+com1.out

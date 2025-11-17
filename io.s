@@ -1,5 +1,3 @@
-; io.s - Assembly I/O functions
-
 global outb             ; make the label outb visible outside this file
 global inb              ; make the label inb visible outside this file
 

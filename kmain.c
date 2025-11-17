@@ -1,23 +1,45 @@
-/* kmain.c - Kernel main function */
-#include "fb.h"
-
 #include "fb.h"
 #include "serial.h"
+#include "gdt.h"
+#include "idt.h"
+#include "keyboard.h"
+#include "shell.h"
 
-/** kmain:
- *  The main kernel entry point.
- */
-void kmain(void)
+int kmain(void)
 {
     /* Configure serial port */
-    serial_configure(SERIAL_COM1_BASE, 1); /* divisor 1 = 115200 baud */
+    serial_configure_baud_rate(SERIAL_COM1_BASE, 3);
+    serial_configure_line(SERIAL_COM1_BASE);
+    serial_configure_fifo_buffer(SERIAL_COM1_BASE);
+    serial_configure_modem(SERIAL_COM1_BASE);
     
-    /* Test framebuffer */
-    fb_write("Hello from the framebuffer!\n", 29);
-    fb_write("Hydra OS is running.\n", 22);
-    fb_write_impl("Like and subscribe.\n\n", 22, FB_RED,FB_LIGHT_GREY);
+    /* Write to serial */
+    serial_write("Kernel starting...\n", 19);
     
-    /* Test serial port */
-    serial_write("Hello from the serial port!\n", 29);
-    serial_write("OS kernel initialized successfully.\n", 37);
+    /* Set up GDT */
+    gdt_install();
+    serial_write("GDT installed\n", 14);
+    
+    /* Set up IDT */
+    idt_install();
+    serial_write("IDT installed\n", 14);
+    
+    /* Initialize keyboard */
+    keyboard_init();
+    serial_write("Keyboard initialized\n", 21);
+    
+    /* Enable interrupts */
+    __asm__ ("sti");
+    serial_write("Interrupts enabled\n", 19);
+    
+    /* Initialize and run shell */
+    shell_init();
+    serial_write("Shell started\n", 14);
+    
+    /* Main loop */
+    while (1) {
+        shell_update();
+    }
+    
+    return 0;
 }
