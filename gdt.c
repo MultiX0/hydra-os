@@ -56,5 +56,5 @@ void gdt_install(void)
     gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); /* Code segment */
     gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); /* Data segment */
 
-    load_gdt((unsigned int *)&gp);
+    load_gdt(&gp);  // Changed from: load_gdt((unsigned int *)&gp);
 }
