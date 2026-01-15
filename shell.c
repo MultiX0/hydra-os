@@ -25,14 +25,6 @@ int strcmp(const char *s1, const char *s2)
     return *(unsigned char *)s1 - *(unsigned char *)s2;
 }
 
-/** shell_clear_command:
- *  Clears the screen
- */
-void shell_clear_command(void)
-{
-    fb_clear();
-}
-
 /** shell_help_command:
  *  Displays help information
  */
@@ -117,7 +109,7 @@ void shell_execute_command(void)
     if (strcmp(cmd, "help") == 0) {
         shell_help_command();
     } else if (strcmp(cmd, "clear") == 0) {
-        shell_clear_command();
+        fb_clear();
     } else if (strcmp(cmd, "echo") == 0) {
         shell_echo_command(args);
     } else if (strcmp(cmd, "about") == 0) {
